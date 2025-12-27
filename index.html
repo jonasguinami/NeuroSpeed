@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroSpeed - Teste de Processamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>NeuroSpeed</h1>
+            <button class="theme-btn" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+        </div>
+
+        <div id="menu-screen" class="screen active">
+    
+    <div class="control-group">
+        <label>Dificuldade</label>
+        <select id="difficulty" onchange="updateDifficultySettings()">
+            <option value="easy">Fácil (3-5 n°) - Iniciante</option>
+            <option value="medium" selected>Médio (5-7 n°) - Normal</option>
+            <option value="hard">Difícil (8-10 n°) - Desafio</option>
+            <option value="epic">Épico (12-15 n°) - Mestre</option>
+            <option value="impossible">Impossível (20-30 n°) - Divino</option>
+        </select>
+    </div>
+
+    <div class="control-group">
+        <label>Rodadas: <span id="rounds-val" class="range-value">10</span></label>
+        <input type="range" id="rounds-range" min="5" max="50" step="1" value="10" oninput="document.getElementById('rounds-val').innerText = this.value">
+        <div style="font-size: 0.8rem; color: var(--text-sec); margin-top: 5px;">Quantas vezes você quer jogar?</div>
+    </div>
+
+    <div class="control-group">
+        <label>Qtd. de Números: <span id="digits-val" class="range-value">Aleatório</span></label>
+        <input type="range" id="digits-range" step="1" oninput="updateDigitDisplay()">
+        <div style="font-size: 0.8rem; color: var(--text-sec); margin-top: 5px;">(Puxe tudo p/ esquerda para Aleatório)</div>
+    </div>
+
+    <div class="control-group">
+        <label>Tempo Memorização (s): <span id="mem-val" class="range-value">2s</span></label>
+        <input type="range" id="mem-time" min="1" max="5" step="0.5" value="2" oninput="document.getElementById('mem-val').innerText = this.value + 's'">
+    </div>
+
+    <div class="control-group">
+        <label>Tempo Oculto (s): <span id="hide-val" class="range-value">5s</span></label>
+        <input type="range" id="hide-time" min="3" max="15" step="1" value="5" oninput="document.getElementById('hide-val').innerText = this.value + 's'">
+    </div>
+
+    <button class="btn" onclick="startGame()">Iniciar Desafio</button>
+    <button class="btn btn-secondary" onclick="showRanking()">Ver Ranking</button>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <button class="btn-back" onclick="cancelGame()" title="Cancelar e Voltar">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-sec); margin-top: 10px;">
+                <span id="round-display">Rodada 1/10</span>
+                <span id="score-display">Pontos: 0</span>
+            </div>
+            
+            <div class="progress-bar">
+                <div id="game-progress" class="progress-fill"></div>
+            </div>
+
+            <div id="game-content">
+                </div>
+        </div>
+
+        <div id="ranking-screen" class="screen">
+    <h2>Ranking Local</h2>
+    <ul id="ranking-list" class="ranking-list">
+        </ul>
+    
+    <div class="io-actions">
+        <button class="icon-btn" onclick="clearRanking()" title="Apagar Ranking" style="color: var(--danger);">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        
+        <button class="icon-btn" onclick="exportRanking()" title="Baixar JSON"><i class="fas fa-download"></i></button>
+        <button class="icon-btn" onclick="document.getElementById('import-file').click()" title="Importar JSON"><i class="fas fa-upload"></i></button>
+        <input type="file" id="import-file" style="display: none;" onchange="importRanking(this)">
+    </div>
+
+    <button class="btn btn-secondary" onclick="showMenu()" style="margin-top: 20px;">Voltar</button>
+</div>
+    
+<div class="footer">
+                Desenvolvido por Jonas Guinami
+            </div>
+        </div> <script src="script.js"></script>
+
+    </div>
+</body>
+</html>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,431 @@
+/* --- VARIAVEIS E TEMA --- */
+:root {
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-main: #2d3436;
+    --text-sec: #636e72;
+    --primary: #6c5ce7;
+    --primary-hover: #5649c0;
+    --accent: #00cec9;
+    --danger: #ff7675;
+    --success: #00b894;
+    --shadow: 0 20px 60px rgba(0,0,0,0.06);
+    --input-bg: #dfe6e9;
+    --radius: 24px;
+    --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+[data-theme="dark"] {
+    --bg-color: #181825;
+    --card-bg: #262638;
+    --text-main: #ecf0f1;
+    --text-sec: #a4b0be;
+    --primary: #a29bfe;
+    --primary-hover: #8179e8;
+    --input-bg: #32324a;
+    --shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* --- RESET GLOBAL E FONTE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif; /* Fonte aplicada em TUDO */
+    -webkit-tap-highlight-color: transparent; /* Remove flash azul no mobile */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100dvh; /* Suporte melhor mobile */
+    overflow-x: hidden;
+    transition: background var(--transition), color var(--transition);
+    padding: 20px;
+}
+
+/* --- CONTAINER PRINCIPAL --- */
+.container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    text-align: center;
+    transition: transform var(--transition);
+}
+
+/* --- CABEÇALHO --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    height: 50px; /* Altura fixa para alinhar */
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.theme-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: var(--input-bg);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.theme-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: rotate(15deg);
+}
+
+/* --- TELAS E ANIMAÇÕES --- */
+.screen {
+    display: none;
+    opacity: 0;
+    position: relative;
+}
+
+.screen.active {
+    display: block;
+    animation: slideUp 0.5s forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Padding extra na tela de jogo para o botão de voltar não atrapalhar */
+#game-screen {
+    padding-top: 50px;
+}
+
+/* --- CONTROLES E INPUTS --- */
+.control-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-sec);
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+select, input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 16px;
+    border: 2px solid transparent; /* Para evitar pulo no focus */
+    background: var(--input-bg);
+    color: var(--text-main);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+select:focus, input[type="text"]:focus {
+    background: var(--card-bg);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1); /* Glow suave */
+}
+
+/* Slider Customizado */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    margin: 10px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    margin-top: -9px;
+    box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4);
+    transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: var(--input-bg);
+    border-radius: 10px;
+}
+
+/* --- BOTÕES REDONDOS E POLIDOS --- */
+.btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 18px; /* Mais redondo */
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--primary);
+    color: #fff;
+    margin-top: 15px;
+    box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.4); /* Sombra suave */
+    transition: transform 0.1s, background 0.3s, box-shadow 0.3s;
+    outline: none; /* Remove outline padrão */
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(108, 92, 231, 0.5);
+}
+
+.btn:active {
+    transform: scale(0.97); /* Efeito de clique físico */
+    box-shadow: 0 5px 10px -5px rgba(108, 92, 231, 0.4);
+}
+
+.btn:focus { outline: none; } /* Garante que não tenha blur azul */
+
+.btn-secondary {
+    background: var(--input-bg);
+    color: var(--text-main);
+    box-shadow: none;
+}
+.btn-secondary:hover { background: #cfd8dc; }
+[data-theme="dark"] .btn-secondary:hover { background: #4b4b6a; }
+
+.btn-success { background: var(--success); box-shadow: 0 10px 20px -5px rgba(0, 184, 148, 0.4); }
+.btn-success:hover { background: #00a383; }
+
+.btn-danger { background: var(--danger); box-shadow: 0 10px 20px -5px rgba(255, 118, 117, 0.4); }
+.btn-danger:hover { background: #d63031; }
+
+.row-btns {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* --- BOTÃO VOLTAR (SETA) --- */
+.btn-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--text-sec);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    outline: none;
+}
+
+.btn-back:hover {
+    background: var(--input-bg);
+    color: var(--danger);
+    transform: scale(1.1);
+}
+
+/* --- DISPLAY DO JOGO --- */
+.big-number {
+    font-size: 4rem; /* Desktop */
+    font-weight: 800;
+    margin: 40px 0;
+    letter-spacing: 2px;
+    min-height: 80px;
+    word-break: break-all;
+    line-height: 1.1;
+    color: var(--text-main);
+}
+
+.status-text {
+    font-size: 1.2rem;
+    color: var(--text-sec);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Barra de Progresso */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--input-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Timer Circular */
+.timer-visual {
+    width: 80px;
+    height: 80px;
+    border: 5px solid var(--input-bg);
+    border-radius: 50%;
+    margin: 20px auto;
+    animation: spin linear infinite;
+    /* A cor da borda superior é definida inline pelo JS */
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- RANKING E LISTAS --- */
+.ranking-list {
+    list-style: none;
+    margin-top: 20px;
+    max-height: 250px;
+    overflow-y: auto;
+    text-align: left;
+    border: 1px solid var(--input-bg);
+    border-radius: 16px;
+    padding: 5px;
+}
+
+/* Scrollbar bonita */
+.ranking-list::-webkit-scrollbar { width: 5px; }
+.ranking-list::-webkit-scrollbar-thumb { background: var(--text-sec); border-radius: 10px; }
+.ranking-list::-webkit-scrollbar-track { background: transparent; }
+
+.ranking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--input-bg);
+    font-size: 0.95rem;
+}
+.ranking-item:last-child { border-bottom: none; }
+
+.io-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-sec);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 5px;
+}
+.icon-btn:hover { color: var(--primary); transform: translateY(-2px); }
+
+/* --- FOOTER --- */
+.footer {
+    margin-top: auto; /* Empurra para o final do container */
+    padding-top: 20px;
+    font-size: 0.8rem;
+    color: var(--text-sec);
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+}
+
+/* --- RESPONSIVIDADE (MOBILE - SEM LIMBO) --- */
+@media (max-width: 480px) {
+    body {
+        /* Centraliza o card na vertical se sobrar espaço */
+        align-items: center; 
+        padding: 15px; /* Um respiro nas bordas da tela */
+    }
+
+    .container {
+        width: 100%;
+        /* O SEGREDO: Altura automática, só cresce o necessário */
+        min-height: auto; 
+        height: auto; 
+        
+        /* Mantém o visual de card (quadrinho) mesmo no mobile */
+        border-radius: 24px; 
+        box-shadow: var(--shadow); 
+        
+        display: flex;
+        flex-direction: column;
+        padding: 30px 20px 20px 20px; /* Padding equilibrado */
+    }
+
+    /* Tira a margem forçada do título */
+    h1 { 
+        font-size: 1.6rem; 
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    #game-screen {
+        padding-top: 60px; /* Espaço seguro para o botão */
+        flex: none;
+    }
+
+    /* Força o botão a ficar no canto superior esquerdo exato da área de jogo */
+    .btn-back {
+        top: 0; 
+        left: 0;
+        /* Garante que não tenha margens estranhas */
+        margin: 0; 
+    }
+
+    .big-number { 
+        font-size: 3rem; 
+        margin: 30px 0; 
+    }
+    
+    /* Ajuste para não quebrar o layout */
+    .big-number[style*="font-size: 4rem"] { font-size: 3.5rem !important; }
+
+    .btn { padding: 16px; }
+    
+    .row-btns { flex-direction: column; gap: 10px; }
+    
+    .ranking-list { max-height: 250px; } /* Altura fixa pra lista não estourar */
+    
+    /* --- FOOTER COLADO NO CONTEÚDO --- */
+    .footer {
+        /* Remove o comportamento de ir pro final da tela */
+        margin-top: 25px !important; 
+        padding: 0;
+        position: static; /* Garante que segue o fluxo normal */
+    }
+}
